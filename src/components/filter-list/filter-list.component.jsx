@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
 import './filter-list.style.scss';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { selectFiltersList } from '../../redux/filters/filters.selectors'
+import { fetchRestaurants } from '../../redux/restaurants/restaurants.actions';
 
-const FilterList = () => {
-    const [filter, setFilter] = useState('')
+const FilterList = ({ filters, fetchRestaurants }) => {
+    const [filter, setFilter] = useState('');
     return (
         <div className="filter-list">
-            <div className={ filter === 'test' ? 'filter-item active' : 'filter-item' }  onClick={ () => setFilter('test') }>
-                <span>1 بالاترین امتیاز</span>
-            </div>
-            <div className="filter-item">
-                <span>بالاترین امتیاز</span>
-            </div>
-            <div className="filter-item">
-                <span>بالاترین امتیاز</span>
-            </div>
-            <div className="filter-item">
-                <span>بالاترین امتیاز</span>
-            </div>
+            {
+                filters.map(({ title, value }) => (
+                    <div key={ value } className={ filter === value ? 'filter-item active' : 'filter-item' }  onClick={ () => {
+                        setFilter(value);
+                        fetchRestaurants(value)
+                    }}>
+                        <span>{ title }</span>
+                    </div>
+                ))
+            }
         </div>
     )
 }
 
-export default FilterList;
+const mapDispatchToProps = dispatch => ({
+    fetchRestaurants: (filter) => dispatch(fetchRestaurants(filter)),
+})
+const mapStateToProps = createStructuredSelector({
+    filters: selectFiltersList,
+})
+export default connect(mapStateToProps, mapDispatchToProps)(FilterList);

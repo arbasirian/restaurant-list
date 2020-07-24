@@ -1,7 +1,7 @@
 import React from 'react';
 import './restaurant-item.style.scss';
 
-const RestaurantItem = () => {
+const RestaurantItem = ({ restaurantInfo }) => {
     return (
         <div className="restauran-item">
             <div className="top">
