@@ -1,0 +1,14 @@
+.header-section {
+    background-color: #ffffff;
+    padding: 10px 0;
+    height: 23vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .filters-wrapper {
+        overflow-x: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}
