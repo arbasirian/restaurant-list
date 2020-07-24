@@ -1,19 +1,22 @@
 import React from 'react'
 import './restaurants-list.style.scss';
 import RestaurantItem from '../restaurant-item/restaurant-item.component';
+import { selectRestaurantsList } from '../../redux/restaurants/restaurants.selectors';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const RestaurantsList = () => {
+
+const RestaurantsList = ({ restaurants }) => {
     return (
         <div className="restaurants-list">
-            <RestaurantItem />
-            <RestaurantItem />
-            <RestaurantItem />
-            <RestaurantItem />
-            <RestaurantItem />
-            <RestaurantItem />
-            <RestaurantItem />
+            {
+                restaurants.map(({ data }) => <RestaurantItem key={data.id} restaurantInfo={ data } />)
+            }
+            
         </div>
     )
 }
-
-export default RestaurantsList;
+const mapStateToProps = createStructuredSelector({
+    restaurants: selectRestaurantsList,
+})
+export default connect(mapStateToProps)(RestaurantsList);
