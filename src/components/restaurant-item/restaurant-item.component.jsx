@@ -4,7 +4,7 @@ import './restaurant-item.style.scss';
 const RestaurantItem = ({ restaurantInfo }) => {
     const { address, logo, title, countReview, rate, coupon_count, description } = restaurantInfo;
     const MAX_LENGTH = 30;
-    const newAddress = address.length > MAX_LENGTH ? address.substring(0, MAX_LENGTH) + '...' : address;
+    const newAddress = address && address.length > MAX_LENGTH ? address.substring(0, MAX_LENGTH) + '...' : address;
     return (
         <div className="restauran-item">
             <div className="top">
